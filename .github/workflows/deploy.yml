@@ -38,6 +38,8 @@ jobs:
 
       - name: Build
         run: pnpm run export
+        env:
+          NEXT_PUBLIC_N8N_WEBHOOK_URL: ${{secrets.NEXT_PUBLIC_N8N_WEBHOOK_URL}}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

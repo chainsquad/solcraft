@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { addToWaitlist } from "@/lib/n8n";
 import {
   Code2,
   Zap,
@@ -24,14 +25,28 @@ import {
 export default function Home() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState<number | null>(null);
   const [isAgentOpen, setIsAgentOpen] = useState<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    setError("");
+    setLoading(true);
+
+    try {
+      await addToWaitlist({
+        email,
+        type: "waitlist",
+      });
       setIsSubmitted(true);
       console.log("Waitlist signup:", email);
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -497,10 +512,12 @@ export default function Home() {
                   <button
                     type="submit"
                     className="bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-none font-medium text-sm outline-none transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 h-11 px-6"
+                    disabled={loading || !email}
                   >
                     Join Waitlist
                     <ChevronRight className="h-4 w-4" />
                   </button>
+                  {error && <p className="text-sm text-destructive">{error}</p>}
                 </div>
               </form>
             ) : (
