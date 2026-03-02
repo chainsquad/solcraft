@@ -290,11 +290,10 @@ export default function Home() {
                 AI-Powered Development
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-snug tracking-tighter">
-                Transform Your{" "}
+                Solana App Development,{" "}
                 <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent">
-                  Project Ideas
-                </span>{" "}
-                Into Production-Ready Solana Applications
+                  Automated
+                </span>
               </h1>
               <p className="text-xl text-muted-foreground mb-6">
                 Eight specialized AI agents work sequentially to build complete

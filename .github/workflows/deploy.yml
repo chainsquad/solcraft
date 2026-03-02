@@ -37,6 +37,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: CNAME
+        run: echo "solcraft.actions.chainsquad.com" > ./out/CNAME
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
